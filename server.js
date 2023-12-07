@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const favicon = require("serve-favicon");
 const logger = require("morgan");
+var cron = require("./utils/node-cron");
 
 require("dotenv").config();
 
@@ -9,6 +10,8 @@ require("dotenv").config();
 require("./config/database");
 
 const app = express();
+
+cron.cronJob();
 
 app.use(logger("dev"));
 app.use(express.json());
