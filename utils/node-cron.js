@@ -41,11 +41,7 @@ function newCronJob() {
     "* 30 12 * * *",
     () => {
       axios
-        .get(
-          `https://api.the-odds-api.com/v4/sports/icehockey_nhl/odds/?apiKey=${API_KEY}&regions=us&markets=h2h,spreads&oddsFormat=american&bookmakers=draftkings&commenceTimeFrom=${start.toISOString().split(".")[0] + "Z"}&commenceTimeTo=${
-            end.toISOString().split(".")[0] + "Z"
-          }`
-        )
+        .get(`https://api.the-odds-api.com/v4/sports/icehockey_nhl/odds/?apiKey=${API_KEY}&regions=us&markets=h2h,spreads&oddsFormat=american&bookmakers=draftkings`)
         .then((response) => {
           controller.create(response.data);
         })
