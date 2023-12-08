@@ -2,16 +2,12 @@ const cron = require("node-cron");
 const axios = require("axios");
 const controller = require("../controllers/odds");
 
-let date = new Date();
-let start = new Date();
-let end = new Date();
-start.setDate(date.getDate() + 1);
-end.setDate(date.getDate() + 1);
-start.setUTCHours(0, 0, 0);
-end.setUTCHours(23, 59, 59);
-
 function cronJob() {
   const API_KEY = process.env.REACT_APP_API_KEY;
+  let start = new Date();
+  let end = new Date();
+  start.setHours(start.getHours() + 8);
+  end.setHours(end.getHours() + 25);
   cron.schedule(
     "* 0 3 * * *",
     () => {
@@ -23,6 +19,7 @@ function cronJob() {
         )
         .then((response) => {
           controller.create(response.data);
+          console.log(response.data, "done");
         })
         .catch((error) => {
           console.log(error);
