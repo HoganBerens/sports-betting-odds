@@ -38,7 +38,7 @@ function newCronJob() {
   start.setHours(start.getHours() + 8);
   end.setHours(end.getHours() + 25);
   cron.schedule(
-    "* 0 1 * * *",
+    "* 11 13 * * *",
     () => {
       axios
         .get(`https://api.the-odds-api.com/v4/sports/icehockey_nhl/odds/?apiKey=${API_KEY}&regions=us&markets=h2h,spreads&oddsFormat=american&bookmakers=draftkings`)
