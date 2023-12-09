@@ -9,7 +9,7 @@ function cronJob() {
   start.setHours(start.getHours() + 8);
   end.setHours(end.getHours() + 25);
   cron.schedule(
-    "* 30 12 * * *",
+    "* 30 6 * * *",
     () => {
       axios
         .get(
@@ -19,36 +19,6 @@ function cronJob() {
         )
         .then((response) => {
           controller.create(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-    {
-      scheduled: true,
-      timezone: "America/Chicago",
-    }
-  );
-}
-
-function newCronJob() {
-  const API_KEY = process.env.REACT_APP_API_KEY;
-  let start = new Date("December 10, 2023 03:00:00");
-  let end = new Date("December 10, 2023 03:00:00");
-  start.setHours(start.getHours() + 8);
-  end.setHours(end.getHours() + 25);
-  cron.schedule(
-    "0/10 * * * * *",
-    () => {
-      axios
-        .get(
-          `https://api.the-odds-api.com/v4/sports/icehockey_nhl/odds/?apiKey=${API_KEY}&regions=us&markets=h2h,spreads&oddsFormat=american&bookmakers=draftkings&commenceTimeFrom=${start.toISOString().split(".")[0] + "Z"}&commenceTimeTo=${
-            end.toISOString().split(".")[0] + "Z"
-          }`
-        )
-        .then((response) => {
-          controller.create(response.data);
-          console.log(response.data, "DOne");
         })
         .catch((error) => {
           console.log(error);
