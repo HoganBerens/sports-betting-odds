@@ -12,6 +12,7 @@ require("./config/database");
 const app = express();
 
 cron.cronJob();
+/* cron.newCronJob(); */
 
 app.use(logger("dev"));
 app.use(express.json());
