@@ -1,6 +1,7 @@
 const cron = require("node-cron");
 const axios = require("axios");
-const controller = require("../controllers/odds");
+const oddsController = require("../controllers/odds");
+const resultsController = require("../controllers/results");
 
 function oddsCronJob() {
   const API_KEY = process.env.REACT_APP_API_KEY;
@@ -18,7 +19,7 @@ function oddsCronJob() {
           }`
         )
         .then((response) => {
-          controller.create(response.data);
+          oddsController.create(response.data);
         })
         .catch((error) => {
           console.log(error);
@@ -35,7 +36,7 @@ function resultsCronJob() {
   let start = new Date(Date.now() - 86400000);
   let end = new Date();
   cron.schedule(
-    "* 47 10 * * *",
+    "* 56 10 * * *",
     () => {
       axios
         .get(`https://nhl-score-api.herokuapp.com/api/scores?startDate=${start.toISOString().split("T")[0]}&endDate=${end.toISOString().split("T")[0]}`)

@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const oddsSchema = new Schema(
+const resultsSchema = new Schema(
   {
     teams: [],
     date: String,
@@ -14,4 +14,4 @@ const oddsSchema = new Schema(
   }
 );
 
-module.exports = mongoose.model('Odds', oddsSchema);
+module.exports = mongoose.model("Results", resultsSchema);

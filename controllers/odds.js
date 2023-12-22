@@ -1,4 +1,4 @@
-const Odds = require("../models/odds");
+const Odds = require("../models/odd");
 
 async function create(req, res) {
   req.forEach((odd, oddIndex) => {
