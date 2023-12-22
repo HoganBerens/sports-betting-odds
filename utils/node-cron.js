@@ -34,9 +34,9 @@ function oddsCronJob() {
 
 function resultsCronJob() {
   let start = new Date(Date.now() - 86400000);
-  let end = new Date();
+  let end = new Date(Date.now() - 86300000);
   cron.schedule(
-    "* 56 10 * * *",
+    "* 03 11 * * *",
     () => {
       axios
         .get(`https://nhl-score-api.herokuapp.com/api/scores?startDate=${start.toISOString().split("T")[0]}&endDate=${end.toISOString().split("T")[0]}`)

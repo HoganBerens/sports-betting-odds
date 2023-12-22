@@ -7,16 +7,17 @@ const Dashboard = () => {
   const [yesterdaysResults, setYesterdaysResults] = useState({});
 
   function getOdds() {
+    let start = new Date(Date.now() - 86400000);
+    let end = new Date(Date.now() - 86300000);
     axios
-      .get("https://nhl-score-api.herokuapp.com/api/scores?startDate=2023-12-22&endDate=2023-12-23")
+      .get(`https://nhl-score-api.herokuapp.com/api/scores?startDate=${start.toISOString().split("T")[0]}&endDate=${end.toISOString().split("T")[0]}`)
       .then((response) => {
-        console.log(response.data[0]);
+        console.log("Yesterdays Results", response.data);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        console.log(error);
       });
   }
-
   getOdds();
   return (
     <div>
