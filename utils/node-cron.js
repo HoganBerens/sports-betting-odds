@@ -9,7 +9,7 @@ function cronJob() {
   start.setHours(start.getHours() + 8);
   end.setHours(end.getHours() + 25);
   cron.schedule(
-    "* 20 10 * * *",
+    "* 28 10 * * *",
     () => {
       axios
         .get(
