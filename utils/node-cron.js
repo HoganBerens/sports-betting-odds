@@ -9,7 +9,7 @@ function cronJob() {
   start.setHours(start.getHours() + 8);
   end.setHours(end.getHours() + 25);
   cron.schedule(
-    "* 30 6 * * *",
+    "* 20 10 * * *",
     () => {
       axios
         .get(
@@ -33,5 +33,4 @@ function cronJob() {
 
 module.exports = {
   cronJob,
-  newCronJob,
 };
