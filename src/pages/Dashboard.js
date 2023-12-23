@@ -23,7 +23,6 @@ const Dashboard = () => {
   return (
     <div>
       <div>HomePage</div>
-      {console.log(results)}
       <input type="date" onChange={handleGetDate} />
       <div>Date of Results: {date && date} </div>
       <div>
