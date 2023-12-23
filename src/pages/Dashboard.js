@@ -1,28 +1,45 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Dashboard.css";
 import axios from "axios";
+import { config } from "../utils/configs";
 
 const Dashboard = () => {
-  const [todaysOdds, setTodaysOdds] = useState([]);
-  const [yesterdaysResults, setYesterdaysResults] = useState({});
+  const [results, setResults] = useState([]);
+  const [date, setDate] = useState();
 
-  function getOdds() {
-    let start = new Date(Date.now() - 86400000);
-    let end = new Date(Date.now() - 86300000);
+  const handleGetDate = (event) => {
+    let date = event.target.value;
     axios
-      .get(`https://nhl-score-api.herokuapp.com/api/scores?startDate=${start.toISOString().split("T")[0]}&endDate=${end.toISOString().split("T")[0]}`)
+      .post("/results/getByDate", { date: date }, config)
       .then((response) => {
-        console.log("Yesterdays Results", response.data);
+        setResults(response.data);
+        setDate(date);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
       });
-  }
-  getOdds();
+  };
+
   return (
     <div>
       <div>HomePage</div>
-      <div>Date: </div>
+      {console.log(results)}
+      <input type="date" onChange={handleGetDate} />
+      <div>Date of Results: {date && date} </div>
+      <div>
+        {results.length ? (
+          results.map((result, resultIndex) => (
+            <div key={resultIndex}>
+              <div>
+                {result.teams.away.teamName} VS {""}
+                {result.teams.home.teamName}
+              </div>
+            </div>
+          ))
+        ) : (
+          <div>No Results Found</div>
+        )}
+      </div>
     </div>
   );
 };

@@ -3,11 +3,11 @@ const Schema = mongoose.Schema;
 
 const resultsSchema = new Schema(
   {
-    teams: [],
-    date: String,
-    match_id: String,
-    head_to_head: [],
-    spread: [],
+    teams: {},
+    date: {},
+    goals: [],
+    score: {},
+    gameStats: {},
   },
   {
     timestamps: true,

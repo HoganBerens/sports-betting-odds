@@ -1,8 +1,9 @@
 const express = require("express");
 const path = require("path");
-const favicon = require("serve-favicon");
 const logger = require("morgan");
-var cron = require("./utils/node-cron");
+const favicon = require("serve-favicon");
+var cron = require("./src/utils/node-cron");
+var cors = require("cors");
 
 require("dotenv").config();
 
@@ -10,12 +11,11 @@ require("dotenv").config();
 require("./config/database");
 
 const app = express();
+app.use(logger("dev"));
+app.use(express.json());
 
 cron.oddsCronJob();
 cron.resultsCronJob();
-
-app.use(logger("dev"));
-app.use(express.json());
 
 // Configure both serve-favicon & static middleware
 // to serve from the production 'build' folder
@@ -29,6 +29,7 @@ const port = process.env.PORT || 3001;
 // Put API routes here, before the "catch all" route
 app.use("/users", require("./routes/users"));
 app.use("/odds", require("./routes/odds"));
+app.use("/results", require("./routes/results"));
 
 // The following "catch all" route (note the *) is necessary
 // to return the index.html on all non-AJAX requests

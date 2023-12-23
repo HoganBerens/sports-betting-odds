@@ -1,17 +1,30 @@
 const Results = require("../models/result");
 
 async function createResults(req, res) {
-  req.forEach((odd, oddIndex) => {
+  let date = req.date.raw;
+
+  req.games.forEach((game) => {
     Results.create({
-      teams: [req[oddIndex].away_team, req[oddIndex].home_team],
-      date: req[oddIndex].commence_time,
-      match_id: req[oddIndex].id,
-      head_to_head: [req[oddIndex].bookmakers[0].markets[0].outcomes[0], req[oddIndex].bookmakers[0].markets[0].outcomes[1]],
-      spread: [req[oddIndex].bookmakers[0].markets[1].outcomes[0], req[oddIndex].bookmakers[0].markets[1].outcomes[1]],
+      teams: game.teams,
+      date: date,
+      goals: game.goals,
+      gameStats: game.gameStats,
     });
   });
 }
 
+async function getByDate(req, res) {
+  let results = await Results.find({ date: req.body.date }).lean().exec();
+  res.send(results);
+}
+
+function getAll(req, res) {
+  let results = Results.find({}).lean;
+  res.send(results);
+}
+
 module.exports = {
   createResults,
+  getByDate,
+  getAll,
 };
