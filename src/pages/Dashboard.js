@@ -21,11 +21,11 @@ const Dashboard = () => {
   };
 
   return (
-    <div>
+    <div className="dashboard-wrapper">
       <div>HomePage</div>
       <input type="date" onChange={handleGetDate} />
       <div>Date of Results: {date && date} </div>
-      <div>
+      <div className="dashboard-results-wrapper">
         {results.length ? (
           results.map((result, resultIndex) => (
             <div key={resultIndex}>
