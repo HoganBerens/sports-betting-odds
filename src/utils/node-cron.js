@@ -10,7 +10,7 @@ function oddsCronJob() {
   let newStart = new Date(start.setHours(start.getHours() + 11));
   let newEnd = new Date(end.setHours(end.getHours() + 20));
   cron.schedule(
-    "00 30 06 * * *",
+    "00 44 09 * * *",
     () => {
       axios
         .get(
@@ -20,7 +20,6 @@ function oddsCronJob() {
         )
         .then((response) => {
           oddsController.create(response.data);
-          localStorage.setItem("odds", JSON.stringify(response.data));
         })
         .catch((error) => {
           console.log(error);
@@ -37,13 +36,12 @@ function resultsCronJob() {
   let start = new Date(Date.now() - 86400000);
   let end = new Date(Date.now() - 86300000);
   cron.schedule(
-    "00 29 06 * * *",
+    "00 44 09 * * *",
     () => {
       axios
         .get(`https://nhl-score-api.herokuapp.com/api/scores?startDate=${start.toISOString().split("T")[0]}&endDate=${end.toISOString().split("T")[0]}`)
         .then((response) => {
           resultsController.createResults(response.data[0]);
-          localStorage.setItem("results", JSON.stringify(response.data));
         })
         .catch((error) => {
           console.log(error);
