@@ -2,7 +2,6 @@ const Results = require("../models/result");
 
 async function createResults(req, res) {
   let date = req.date.raw;
-
   req.games.forEach((game) => {
     Results.create({
       teams: game.teams,
