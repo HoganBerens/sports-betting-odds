@@ -5,6 +5,7 @@ import { config } from "../utils/configs";
 
 const Dashboard = () => {
   const [results, setResults] = useState([]);
+  const [todaysOdds, setTodaysOdds] = useState([]);
   const [date, setDate] = useState();
 
   const handleGetDate = (event) => {
@@ -20,9 +21,23 @@ const Dashboard = () => {
       });
   };
 
+  const handleGetOdds = () => {
+    let date = new Date();
+    axios
+      .post("/odds/getTodays", { date: date.toISOString().split("T")[0] }, config)
+      .then((response) => {
+        /* setTodaysOdds(response.data); */
+        console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div className="dashboard-wrapper">
       <div>HomePage</div>
+      <div onClick={handleGetOdds}>Get Odds</div>
+
       <input type="date" onChange={handleGetDate} />
       <div>Date of Results: {date && date} </div>
       <div className="dashboard-results-wrapper">

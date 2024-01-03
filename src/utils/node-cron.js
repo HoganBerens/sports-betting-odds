@@ -4,7 +4,7 @@ const oddsController = require("../../controllers/odds");
 const resultsController = require("../../controllers/results");
 
 function oddsCronJob() {
-  const API_KEY = "cb745aa833d11f80015809296c3b72e8";
+  const API_KEY = process.env.REACT_APP_API_KEY;
   let start = new Date();
   let end = new Date();
   let newStart = new Date(start.setHours(start.getHours() + 10));
