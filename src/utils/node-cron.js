@@ -10,7 +10,7 @@ function oddsCronJob() {
   let newStart = new Date(start.setHours(start.getHours() + 6));
   let newEnd = new Date(end.setHours(end.getHours() + 16));
   cron.schedule(
-    "00 23 10 * * *",
+    "00 25 10 * * *",
     () => {
       axios
         .get(
