@@ -7,19 +7,20 @@ function oddsCronJob() {
   const API_KEY = "cb745aa833d11f80015809296c3b72e8";
   let start = new Date();
   let end = new Date();
-  let newStart = new Date(start.setHours(start.getHours() + 11));
+  let newStart = new Date(start.setHours(start.getHours() + 10));
   let newEnd = new Date(end.setHours(end.getHours() + 20));
   cron.schedule(
-    "00 50 09 * * *",
+    "00 09 10 * * *",
     () => {
       axios
         .get(
-          `https://api.the-odds-api.com/v4/sports/icehockey_nhl/odds/?apiKey=${API_KEY}&regions=us&markets=h2h,spreads&oddsFormat=american&bookmakers=draftkings&commenceTimeFrom=${newStart.toISOString().split(".")[0] + "Z"}&commenceTimeTo=${
+          `https://api.the-odds-api.com/v4/sports/icehockey_nhl/odds/?apiKey=${API_KEY}&regions=us&markets=h2h,spreads&oddsFormat=american&commenceTimeFrom=${newStart.toISOString().split(".")[0] + "Z"}&commenceTimeTo=${
             newEnd.toISOString().split(".")[0] + "Z"
           }`
         )
         .then((response) => {
           oddsController.create(response.data);
+          console.log("done", response.data);
         })
         .catch((error) => {
           console.log(error);
