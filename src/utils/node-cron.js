@@ -7,10 +7,10 @@ function oddsCronJob() {
   const API_KEY = "cb745aa833d11f80015809296c3b72e8";
   let start = new Date();
   let end = new Date();
-  let newStart = new Date(start.setHours(start.getHours() + 10));
-  let newEnd = new Date(end.setHours(end.getHours() + 20));
+  let newStart = new Date(start.setHours(start.getHours() + 6));
+  let newEnd = new Date(end.setHours(end.getHours() + 16));
   cron.schedule(
-    "00 09 10 * * *",
+    "00 23 10 * * *",
     () => {
       axios
         .get(
