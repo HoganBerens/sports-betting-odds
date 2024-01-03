@@ -7,8 +7,8 @@ function oddsCronJob() {
   const API_KEY = "cb745aa833d11f80015809296c3b72e8";
   let start = new Date();
   let end = new Date();
-  let newStart = new Date(start.setHours(start.getHours() + 6));
-  let newEnd = new Date(end.setHours(end.getHours() + 16));
+  let newStart = new Date(start.setHours(start.getHours() + 10));
+  let newEnd = new Date(end.setHours(end.getHours() + 20));
   cron.schedule(
     "00 25 10 * * *",
     () => {
@@ -20,7 +20,6 @@ function oddsCronJob() {
         )
         .then((response) => {
           oddsController.create(response.data);
-          console.log("done", response.data);
         })
         .catch((error) => {
           console.log(error);
@@ -37,7 +36,7 @@ function resultsCronJob() {
   let start = new Date(Date.now() - 86400000);
   let end = new Date(Date.now() - 86300000);
   cron.schedule(
-    "00 50 09 * * *",
+    "00 31 10 * * *",
     () => {
       axios
         .get(`https://nhl-score-api.herokuapp.com/api/scores?startDate=${start.toISOString().split("T")[0]}&endDate=${end.toISOString().split("T")[0]}`)
