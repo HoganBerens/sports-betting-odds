@@ -22,7 +22,7 @@ const Dashboard = () => {
   };
 
   const handleGetOdds = () => {
-    let date = new Date("January 3, 2024 09:15:00");
+    let date = new Date();
     axios
       .post("/odds/getTodays", { date: date.toISOString().split("T")[0] }, config)
       .then((response) => {
