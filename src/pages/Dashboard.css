@@ -9,4 +9,14 @@
 .dashboard-results-wrapper {
   display: flex;
   max-width: 1200px;
+  max-height: 1200px;
+  flex-wrap: wrap;
+}
+
+.dashboard-result-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 300px;
+  min-height: 200px;
 }

@@ -37,17 +37,14 @@ const Dashboard = () => {
     <div className="dashboard-wrapper">
       <div>HomePage</div>
       <div onClick={handleGetOdds}>Get Odds</div>
-
       <input type="date" onChange={handleGetDate} />
       <div>Date of Results: {date && date} </div>
       <div className="dashboard-results-wrapper">
         {results.length ? (
           results.map((result, resultIndex) => (
-            <div key={resultIndex}>
-              <div>
-                {result.teams.away.teamName} VS {""}
-                {result.teams.home.teamName}
-              </div>
+            <div className="dashboard-result-wrapper" key={resultIndex}>
+              {result.teams.away.teamName} VS {""}
+              {result.teams.home.teamName}
             </div>
           ))
         ) : (
