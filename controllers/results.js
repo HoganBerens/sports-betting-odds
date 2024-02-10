@@ -1,4 +1,4 @@
-const Results = require("../models/result");
+const Results = require('../models/result');
 
 async function createResults(req, res) {
   let date = req.date.raw;
