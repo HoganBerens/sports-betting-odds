@@ -3,18 +3,20 @@ import "./Dashboard.css";
 import axios from "axios";
 import { config } from "../utils/configs";
 
-const Dashboard = () => {
-  const [results, setResults] = useState([]);
-  const [todaysOdds, setTodaysOdds] = useState([]);
-  const [date, setDate] = useState();
+const Dashboard = (props) => {
+  const { results, setResults, setDate, date, setOdds, odds } = props;
 
-  const handleGetDate = (event) => {
+  const handleDataByDate = (event) => {
     let date = event.target.value;
+    let id = event.target.id.toString();
     axios
-      .post("/results/getByDate", { date: date }, config)
+      .post(`/${event.target.id}/getByDate`, { date: date }, config)
       .then((response) => {
-        setResults(response.data);
-        setDate(date);
+        if (id === "results") {
+          setResults(response.data);
+        } else if (id == "odds") {
+          setOdds(response.data);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -23,11 +25,11 @@ const Dashboard = () => {
 
   const handleGetOdds = () => {
     let date = new Date();
+    let d = new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().split("T")[0];
     axios
-      .post("/odds/getTodays", { date: date.toISOString().split("T")[0] }, config)
+      .post("/odds/getTodays", { date: d }, config)
       .then((response) => {
-        /* setTodaysOdds(response.data); */
-        console.log(response.data);
+        setOdds(response.data);
       })
       .catch((err) => {
         console.log(err);
@@ -37,7 +39,7 @@ const Dashboard = () => {
     <div className="dashboard-wrapper">
       <div>HomePage</div>
       <div onClick={handleGetOdds}>Get Odds</div>
-      <input type="date" onChange={handleGetDate} />
+      <input id="results" type="date" onChange={handleDataByDate} />
       <div>Date of Results: {date && date} </div>
       <div className="dashboard-results-wrapper">
         {results.length ? (
@@ -49,6 +51,19 @@ const Dashboard = () => {
           ))
         ) : (
           <div>No Results Found</div>
+        )}
+      </div>
+      <input id="odds" type="date" onChange={handleDataByDate} />
+      <div className="dashboard-odds-wrapper">
+        {odds.length ? (
+          odds.map((odd, oddIndex) => (
+            <div className="dashboard-odd-wrapper" key={oddIndex}>
+              {odd.teams[0]} VS {""}
+              {odd.teams[1]}
+            </div>
+          ))
+        ) : (
+          <div>No Odds Found</div>
         )}
       </div>
     </div>

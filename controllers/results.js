@@ -17,13 +17,7 @@ async function getByDate(req, res) {
   res.send(results);
 }
 
-function getAll(req, res) {
-  let results = Results.find({}).lean;
-  res.send(results);
-}
-
 module.exports = {
   createResults,
   getByDate,
-  getAll,
 };

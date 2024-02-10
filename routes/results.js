@@ -1,9 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const resultsCtrl = require("../controllers/results");
+const ResultsCtrl = require("../controllers/results");
 
-router.post("/getByDate", resultsCtrl.getByDate);
-
-router.get("/getAll", resultsCtrl.getAll);
+router.post("/getByDate", ResultsCtrl.getByDate);
 
 module.exports = router;

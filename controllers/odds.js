@@ -18,7 +18,13 @@ async function getTodays(req, res) {
   res.send(todaysOdds);
 }
 
+async function getByDate(req, res) {
+  let odds = await Odds.find({ date: req.body.date }).lean().exec();
+  res.send(odds);
+}
+
 module.exports = {
   create,
   getTodays,
+  getByDate,
 };
