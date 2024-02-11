@@ -1,4 +1,4 @@
-const Results = require('../models/result');
+const Results = require("../models/result");
 
 async function createResults(req, res) {
   let date = req.date.raw;
@@ -17,7 +17,13 @@ async function getByDate(req, res) {
   res.send(results);
 }
 
+async function getOne(req, res) {
+  let result = await Results.findById(req.params.id).lean().exec();
+  res.send(result);
+}
+
 module.exports = {
   createResults,
   getByDate,
+  getOne,
 };
