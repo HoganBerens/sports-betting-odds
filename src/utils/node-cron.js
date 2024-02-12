@@ -54,7 +54,29 @@ function resultsCronJob() {
   );
 }
 
+function standingsCronJob() {
+  let STANDINGS_API_KEY = process.env.STANDINGS_API_KEY;
+  cron.schedule(
+    "00 00 08 * * *",
+    () => {
+      axios
+        .get(`https://api.sportsdata.io/v3/nhl/scores/json/Standings/2024?key=${STANDINGS_API_KEY}`)
+        .then((response) => {
+          localStorage.setItem("standings", JSON.stringify(response.data));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    {
+      scheduled: true,
+      timezone: "America/Chicago",
+    }
+  );
+}
+
 module.exports = {
   oddsCronJob,
   resultsCronJob,
+  standingsCronJob,
 };

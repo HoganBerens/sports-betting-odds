@@ -16,6 +16,7 @@ app.use(express.json());
 
 cron.oddsCronJob();
 cron.resultsCronJob();
+cron.standingsCronJob();
 
 // Configure both serve-favicon & static middleware
 // to serve from the production 'build' folder

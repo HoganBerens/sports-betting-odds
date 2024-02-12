@@ -3,10 +3,12 @@ import { useParams } from "react-router";
 import axios from "axios";
 
 const Result = (props) => {
-  let { result, setResult } = props;
-  const STANDINGS_API_KEY = process.env.REACT_APP_STANDINGS_API_KEY;
-
+  let { result, setResult, selectedTeams, setSelectedTeams } = props;
   let { id } = useParams();
+
+  const logTeams = () => {
+    console.log(selectedTeams);
+  };
 
   useEffect(() => {
     axios
@@ -19,21 +21,9 @@ const Result = (props) => {
       });
   }, [id]);
 
-  const handleGetStandings = () => {
-    axios
-      .get(`https://api.sportsdata.io/v3/nhl/scores/json/Standings/2024?key=${STANDINGS_API_KEY}`)
-      .then((response) => {
-        console.log(response.data);
-        localStorage.setItem("standings", JSON.stringify(response.data));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   return (
     <div>
-      <div onClick={handleGetStandings}>Result</div>
+      <div onClick={logTeams}>Team Standings</div>
     </div>
   );
 };
