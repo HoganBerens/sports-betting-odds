@@ -1,13 +1,14 @@
-import { useEffect } from "react";
-import { useParams } from "react-router";
-import axios from "axios";
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
+import axios from 'axios';
 
 const Result = (props) => {
-  let { result, setResult, selectedTeams, setSelectedTeams } = props;
+  const [result, setResult] = useState({ teams: [] });
+  let { selectedTeams } = props;
   let { id } = useParams();
 
   const logTeams = () => {
-    console.log(selectedTeams);
+    console.log(result);
   };
 
   useEffect(() => {
@@ -24,6 +25,7 @@ const Result = (props) => {
   return (
     <div>
       <div onClick={logTeams}>Team Standings</div>
+      <div></div>
     </div>
   );
 };

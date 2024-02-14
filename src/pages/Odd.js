@@ -1,11 +1,16 @@
-import { useEffect } from "react";
-import { useParams } from "react-router";
-import axios from "axios";
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
+import axios from 'axios';
 
 const Odd = (props) => {
-  let { odd, setOdd } = props;
+  const [odd, setOdd] = useState({ teams: [] });
+  let { selectedTeams } = props;
 
   let { id } = useParams();
+
+  const handleLogTeams = () => {
+    console.log(selectedTeams, odd);
+  };
 
   useEffect(() => {
     axios
@@ -20,7 +25,7 @@ const Odd = (props) => {
 
   return (
     <div>
-      <div>Odd</div>
+      <div onClick={handleLogTeams}>Odd</div>
     </div>
   );
 };
